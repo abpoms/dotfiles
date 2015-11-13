@@ -1,6 +1,5 @@
 (defvar my-packages '(better-defaults
                       clojure-mode
-                      clojure-test-mode
                       paredit
                       cider
                       slamhound

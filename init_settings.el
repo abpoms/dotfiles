@@ -8,7 +8,9 @@
 (global-whitespace-mode t)
 
 ;; Set default shell to bash
-(setq shell-file-name "/bin/bash")
+;; (setq shell-file-name "/bin/bash")
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 ;; General emacs settings
 (setq inhibit-startup-message t) ;; No splash screen
@@ -82,7 +84,6 @@
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
-(require 'clj-refactor)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure ;;;;;;;;;;
@@ -97,7 +98,6 @@
 
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 
-(add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
 
 
 ; ac-nrepl-popup for doc's instead of cider-doc
@@ -182,6 +182,8 @@
                           (cons "\\(" "\\)"))))
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin:/usr/local/bin:"))
 (setq exec-path (append exec-path '("/usr/texbin" "/usr/local/bin")))
