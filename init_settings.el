@@ -43,6 +43,15 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; Ace jump
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+
+(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
+
 ;; For setting window width to 80 cols
 (defun set-window-width (n)
   "Set the selected window's width."
@@ -60,6 +69,7 @@
       (insert (format "%S" value))))
 
 ;; TODO(abp): fix env variables in fish to propagate to bash 
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Emacs Lisp 
@@ -210,6 +220,9 @@
   "Run dot2tex on the current buffer"
   (interactive)
   (dot2tex-file (buffer-file-name)))
+
+;; Magit
+
 
 ;; EVIL Mode
 (loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)

@@ -1,4 +1,5 @@
-(defvar my-packages '(better-defaults
+(defvar my-packages '(ace-jump-mode
+                      better-defaults
                       clojure-mode
                       paredit
                       cider
@@ -20,6 +21,8 @@
                       markdown-mode
                       multiple-cursors
                       sunrise-commander
+                      sunrise-x-buttons
+                      sunrise-x-loop
                       less-css-mode
                       evil
                       glsl-mode

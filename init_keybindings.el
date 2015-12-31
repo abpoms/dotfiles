@@ -18,6 +18,9 @@
 
 (global-set-key (kbd "C-x r") 'replace-last-sexp)
 
+(global-set-key (kbd "C-c C-x") 'sunrise)
+(global-set-key (kbd "C-c X") 'sunrise-cd)
+
 (add-hook 'clojure-mode-hook
           (lambda ()
             (cljr-add-keybindings-with-prefix "C-c C-r")))
