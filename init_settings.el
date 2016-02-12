@@ -72,7 +72,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Emacs Lisp 
+;;; Emacs Lisp
 
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
@@ -94,6 +94,16 @@
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
+;;;;;;;;;;;;;;;;;;;;;
+;; C++     ;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
+(setq c-default-style "k&r")
+(setq-default c-basic-offset 2)
+(c-set-offset 'innamespace 0) ; No indent in namespace
+(c-set-offset 'arglist-intro '+)
+(c-set-offset 'arglist-close 0)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.inl\\'" . c++-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Clojure ;;;;;;;;;;
@@ -116,9 +126,9 @@
 
 ;; Graphical switch window
 (require 'switch-window)
-    
+
 ;; Rainbow parens
-(require 'rainbow-delimiters)
+;; (require 'rainbow-delimiters)
 
 ;; Auto complete
 (require 'auto-complete-config)

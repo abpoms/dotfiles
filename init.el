@@ -8,13 +8,9 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; Check emacs.d for elisp files
-(add-to-list 'load-path "~/.emacs.d/")
-
 (load "~/.emacs.d/init_packages")
 (load "~/.emacs.d/init_settings")
 (load "~/.emacs.d/init_keybindings")
-
 
 ;; Autoload defs
 (load-file "~/.emacs.d/scripts/loaddefs.el")

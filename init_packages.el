@@ -1,19 +1,29 @@
-(defvar my-packages '(ace-jump-mode
-                      better-defaults
+(defvar my-packages '(
+                      ;; Style sheets
+                      scss-mode
+                      less-css-mode
+                      ;; Scala
+                      scala-mode2
+                      ;; Clojure
                       clojure-mode
-                      paredit
                       cider
                       slamhound
-                      scala-mode2
+                      ac-nrepl
                       ensime
+                      ;; Python
+                      jedi
+                      ;; Editing
+                      ace-jump-mode
+                      paredit
+                      auto-complete
+                      evil
+                      ;; Themes
+                      solarized-theme
+                      ;; Misc
+                      better-defaults
                       switch-window
                       exec-path-from-shell
-                      auto-complete
-                      ac-nrepl
-                      switch-window
                       buffer-move
-                      solarized-theme
-                      jedi
                       idle-highlight-mode ;; ido-ubiquitous
                       yaml-mode
                       magit
@@ -23,8 +33,7 @@
                       sunrise-commander
                       sunrise-x-buttons
                       sunrise-x-loop
-                      less-css-mode
-                      evil
+
                       glsl-mode
                       auctex
                       auto-complete-auctex

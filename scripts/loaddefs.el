@@ -3,8 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads (cuda-mode) "cuda-mode" "cuda-mode.el" (21646 19044
-;;;;;;  0 0))
+;;;### (autoloads nil "cuda-mode" "cuda-mode.el" (22034 2038 0 0))
 ;;; Generated autoloads from cuda-mode.el
 
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . cuda-mode))
@@ -23,8 +22,8 @@ Key bindings:
 
 ;;;***
 
-;;;### (autoloads (update-autoloads-for-file-in-package-area update-autoloads-in-package-area)
-;;;;;;  "update-auto-loads" "update-auto-loads.el" (21116 46762))
+;;;### (autoloads nil "update-auto-loads" "update-auto-loads.el"
+;;;;;;  (22034 2038 0 0))
 ;;; Generated autoloads from update-auto-loads.el
 
 (setq load-path (cons (file-name-directory load-file-name) load-path))
