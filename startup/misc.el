@@ -3,16 +3,25 @@
 ;; Scala
 (use-package scala-mode2)
 ;; Editing
+
 (use-package ace-window
-  :bind ("M-p" . ace-window))
+  :bind ("C-x o" . ace-window))
+
 (use-package avy
   :bind ("C-:" . avy-goto-word-or-subword-1))
-(use-package paredit)
+
+(use-package paredit
+  :config
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'clojure-mode-hook
+            '(lambda () (define-key clojure-mode-map "\M-["
+                          'paredit-wrap-square)))
+  (add-hook 'clojure-mode-hook
+            '(lambda () (define-key clojure-mode-map "\M-{"
+                          'paredit-wrap-curly))))
+
 (use-package auto-complete)
 (use-package multiple-cursors)
-
-;; Themes
-(use-package solarized-theme)
 
 ;; Misc
 (use-package better-defaults)
@@ -31,3 +40,7 @@
 (use-package matlab-mode)
 (use-package graphviz-dot-mode)
 (use-package lua-mode)
+
+(use-package toml-mode)
+
+(setq ac-delay 0.5)

@@ -6,12 +6,16 @@
 ;; Automatically save buffers before compiling
 (setq compilation-ask-about-save nil)
 
-;; Set theme
-(load-theme 'solarized-dark t)
+;; Don't display visible bell because of graphical artifact
+(setq ring-bell-function 'ignore)
 
 (setq mac-command-modifier nil)
 (setq mac-option-modifier (quote meta))
 
+;; Themes
+(use-package solarized-theme
+  :config
+  (load-theme 'solarized-dark t))
 
 ;; TRAMP settings
 (setq tramp-shell-prompt-pattern
@@ -31,8 +35,10 @@
 
 ;; Set default shell to bash
 ;; (setq shell-file-name "/bin/bash")
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
 
 ;; General emacs settings
 (setq inhibit-startup-message t) ;; No splash screen
@@ -52,9 +58,6 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 
-;; Graphical switch window
-(require 'switch-window)
-
 ;; IDO
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -62,14 +65,20 @@
 
 
 ;; For setting window width to 80 cols
-(defun set-window-width (n)
-  "Set the selected window's width."
-  (adjust-window-trailing-edge (selected-window) (- n (window-width)) t))
+(defun set-window-width (window n)
+  "Set the a window's width."
+  (adjust-window-trailing-edge window (- n (window-width window)) t))
 
 (defun set-80-columns ()
   "Set the selected window to 80 columns."
   (interactive)
-  (set-window-width 80))
+  (set-window-width (selected-window) 80))
+
+(defun set-80-columns-all ()
+  "Sets all windows to 80 columns."
+  (interactive)
+  (cl-loop for w being the windows do
+           (set-window-width w 80)))
 
 (defun replace-last-sexp ()
     (interactive)
@@ -91,7 +100,7 @@
 
 (global-set-key (kbd "C-x C-z") 'magit-status)
 
-(global-set-key (kbd "C-x ~") 'set-80-columns)
+(global-set-key (kbd "C-x ~") 'set-80-columns-all)
 
 (global-set-key (kbd "C-x r") 'replace-last-sexp)
 

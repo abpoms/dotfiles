@@ -1,11 +1,6 @@
 (use-package clojure-mode
   :init
-  :config
-  (add-hook 'clojure-mode-hook 'paredit-mode)
-  (add-hook 'clojure-mode-hook
-    '(lambda () (define-key clojure-mode-map "\M-[" 'paredit-wrap-square)))
-(add-hook 'clojure-mode-hook
-    '(lambda () (define-key clojure-mode-map "\M-{" 'paredit-wrap-curly))))
+  :config)
 
 ;; (use-package cider)
 ;; (use-package slamhound)
