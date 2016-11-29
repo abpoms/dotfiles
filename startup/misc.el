@@ -1,7 +1,5 @@
 (use-package scss-mode)
 (use-package less-css-mode)
-;; Scala
-(use-package scala-mode2)
 ;; Editing
 
 (use-package ace-window
@@ -42,5 +40,7 @@
 (use-package lua-mode)
 
 (use-package toml-mode)
+(use-package protobuf-mode)
 
 (setq ac-delay 0.5)
+

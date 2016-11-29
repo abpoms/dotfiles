@@ -8,7 +8,6 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
-
 (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin:/usr/local/bin:"))
 (setq exec-path (append exec-path '("/usr/texbin" "/usr/local/bin")))
 (setq TeX-auto-save t)

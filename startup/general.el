@@ -13,9 +13,11 @@
 (setq mac-option-modifier (quote meta))
 
 ;; Themes
-(use-package solarized-theme
+(use-package solarized-theme)
+
+(use-package color-theme-sanityinc-tomorrow
   :config
-  (load-theme 'solarized-dark t))
+  (color-theme-sanityinc-tomorrow 'night))
 
 ;; TRAMP settings
 (setq tramp-shell-prompt-pattern
@@ -57,6 +59,8 @@
 ; No more typing yes
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+; Dired
+(setq dired-listing-switches "-alh")
 
 ;; IDO
 (setq ido-enable-flex-matching t)
