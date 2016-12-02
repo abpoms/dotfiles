@@ -1,5 +1,7 @@
 (use-package scss-mode)
 (use-package less-css-mode)
+
+(use-package cmake-mode)
 ;; Editing
 
 (use-package ace-window

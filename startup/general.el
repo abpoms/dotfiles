@@ -17,7 +17,7 @@
 
 (use-package color-theme-sanityinc-tomorrow
   :config
-  (color-theme-sanityinc-tomorrow 'night))
+  (load-theme 'sanityinc-tomorrow-night t))
 
 ;; TRAMP settings
 (setq tramp-shell-prompt-pattern
