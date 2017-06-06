@@ -32,7 +32,7 @@
 ;; Whitespace mode settings
 (require 'whitespace)
 (setq whitespace-style
-    '(face tabs trailing lines-tail empty indentation:space))
+      '(face tabs trailing lines-tail empty indentation:space))
 (global-whitespace-mode t)
 
 ;; Set default shell to bash
@@ -56,16 +56,31 @@
 ;; Newline insert with C-n
 (setq next-line-add-newlines t)
 
-; No more typing yes
+;; No more typing yes
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-; Dired
+;; Dired
 (setq dired-listing-switches "-alh")
 
 ;; IDO
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+;;(setq ido-enable-flex-matching t)
+;;(setq ido-everywhere t)
+;;(ido-mode 1)
+
+(use-package helm
+  :init
+  :config
+  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t
+        helm-echo-input-in-header-line t)
+
+  (global-set-key (kbd "M-x") #'helm-M-x)
+  (global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+  (helm-mode 1))
 
 
 ;; For setting window width to 80 cols
@@ -85,10 +100,10 @@
            (set-window-width w 80)))
 
 (defun replace-last-sexp ()
-    (interactive)
-    (let ((value (eval (preceding-sexp))))
-      (kill-sexp -1)
-      (insert (format "%S" value))))
+  (interactive)
+  (let ((value (eval (preceding-sexp))))
+    (kill-sexp -1)
+    (insert (format "%S" value))))
 
 ;; Global
 (global-set-key (kbd "C-x C-;") 'comment-or-uncomment-region)
@@ -98,9 +113,6 @@
 (global-set-key (kbd "<C-S-down>")   'buf-move-down)
 (global-set-key (kbd "<C-S-left>")   'buf-move-left)
 (global-set-key (kbd "<C-S-right>")  'buf-move-right)
-
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 (global-set-key (kbd "C-x C-z") 'magit-status)
 
@@ -118,4 +130,4 @@
             (local-set-key (kbd "C-c t") 'dot2tex-buffer)))
 
 ;; Auto complete 
-;(define-key ac-completing-map "\M-/" 'ac-stop) ; use M-/ to stop
+                                        ;(define-key ac-completing-map "\M-/" 'ac-stop) ; use M-/ to stop
