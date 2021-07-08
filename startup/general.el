@@ -46,9 +46,12 @@
 
 (use-package projectile
   :after f
-  :custom
+  :config
+  (setq projectile-enable-caching t)
+  (define-key projectile-mode-map (kbd "C-M-a") 'projectile-command-map)
   (projectile-auto-discover nil)
-  (projectile-project-search-path (f-directories "~/repos"))
+  (when (file-directory-p "~/repos/")
+    (projectile-project-search-path (f-directories "~/repos")))
   ;; Open magit when switching project
   (projectile-switch-project-action
    (lambda ()
@@ -276,20 +279,6 @@
    ("C-c C-r" . ivy-resume))
   :config
   (counsel-mode +1))
-
-(use-package projectile
-  :init
-  :config
-  (when (file-directory-p "~/repos/")
-    (setq projectile-project-search-path '("~/repos/")))
-  (setq projectile-enable-caching t)
-  (define-key projectile-mode-map (kbd "C-M-a") 'projectile-command-map)
-  (projectile-mode +1))
-
-;; (use-package helm-projectile
-;;     :init
-;;     :config
-;;     (helm-projectile-on))
 
 ;; For setting window width to 81 cols
 (defun set-window-width (window n)
