@@ -280,7 +280,8 @@
 (use-package projectile
   :init
   :config
-  (setq projectile-project-search-path '("~/repos/"))
+  (when (file-directory-p "~/repos/")
+    (setq projectile-project-search-path '("~/repos/")))
   (setq projectile-enable-caching t)
   (define-key projectile-mode-map (kbd "C-M-a") 'projectile-command-map)
   (projectile-mode +1))
