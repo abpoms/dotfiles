@@ -40,8 +40,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (setq use-package-enable-imenu-support t
-      use-package-always-ensure t
-      use-package-always-pin "melpa-stable")
+      use-package-always-ensure t)
 (require 'use-package)
 
 (require 'diminish)
@@ -49,7 +48,7 @@
 ;; Highlight indentation
 (when (eq system-type 'darwin)
   (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1)))
+  (dired-async-mode 1))
 
 (load "clang-format.el")
 (dolist (startup-script (directory-files startup-dir t "\\w+"))
