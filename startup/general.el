@@ -29,6 +29,7 @@
     (add-to-list 'tree-sitter-major-mode-language-alist '(web-mode . tsx)))
 
 (use-package highlight-indent-guides
+  :pin "melpa"
   :hook
   (prog-mode . highlight-indent-guides-mode)
   :custom
@@ -108,14 +109,15 @@
   (bind-key (kbd "<remap> <evil-next-line>") 'evil-next-visual-line evil-normal-state-map)
   (add-to-list 'company-begin-commands 'backward-delete-char-untabify))
 
-(use-package company-box
-  :custom
-  (company-box-show-single-candidate t)
-  ;;(company-box-frame-behavior 'point)
-  (company-box-icon-right-margin 0.5)
-  ;;(company-box-backends-colors '((company-yasnippet . (:annotation default))))
-  :hook
-  (company-mode . company-box-mode))
+(when (display-graphic-p)
+  (use-package company-box
+    :custom
+    (company-box-show-single-candidate t)
+    ;;(company-box-frame-behavior 'point)
+    (company-box-icon-right-margin 0.5)
+    ;;(company-box-backends-colors '((company-yasnippet . (:annotation default))))
+    :hook
+    (company-mode . company-box-mode)))
 
 (use-package lsp-mode
   ;;:custom (lsp-file-watch-ignored-directories (push "[/\\\\]\\.direnv\\'" lsp-file-watch-ignored-directories))
