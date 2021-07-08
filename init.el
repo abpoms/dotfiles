@@ -3,8 +3,8 @@
 
 (setq gc-cons-threshold (* 1 1024 1024)) ;; 100mb
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
-(setq use-package-always-ensure t)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(if (eq system-type 'darwin)
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 
 ;; Set path to dependencies
@@ -23,19 +23,33 @@
     (add-to-list 'load-path project)))
 
 (require 'package)
-(setq package-archives
-      '(("melpa" . "http://melpa.org/packages/")
-        ("gnu" . "http://elpa.gnu.org/packages/")))
 
-(when (not package-archive-contents)
-  (package-refresh-contents))
+(add-to-list 'package-archives
+             '("gnu" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
+(setq package-archive-priorities
+      '(("melpa-stable" . 40)
+        ("gnu" . 10)
+        ("melpa" . 0)))
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(setq use-package-enable-imenu-support t
+      use-package-always-ensure t
+      use-package-always-pin "melpa-stable")
+(require 'use-package)
 
 (require 'diminish)
-(require 'bind-key)
 
 ;; Highlight indentation
-(autoload 'dired-async-mode "dired-async.el" nil t)
-(dired-async-mode 1)
+(when (eq system-type 'darwin)
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1)))
 
 (load "clang-format.el")
 (dolist (startup-script (directory-files startup-dir t "\\w+"))
