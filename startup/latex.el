@@ -1,3 +1,5 @@
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
+
 (add-hook 'plain-TeX-mode-hook
           (lambda () (set (make-variable-buffer-local 'TeX-electric-math)
                           (cons "$" "$"))))
@@ -7,6 +9,8 @@
 (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'writeroom-mode)
+(setq whitespace-global-modes '(not LaTeX-mode))
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin:/usr/local/bin:"))
 (setq exec-path (append exec-path '("/usr/texbin" "/usr/local/bin")))

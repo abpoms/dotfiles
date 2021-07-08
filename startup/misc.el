@@ -45,4 +45,3 @@
 (use-package protobuf-mode)
 
 (setq ac-delay 0.5)
-
