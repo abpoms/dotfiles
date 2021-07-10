@@ -94,9 +94,11 @@
  '(nrepl-message-colors
    '("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4"))
  '(package-selected-packages
-   '(helm-projectile projectile tidal haskell-mode dumb-jump yaml-mode writeroom-mode web-mode toml-mode sunrise-x-loop sunrise-x-buttons solarized-theme smex scss-mode protobuf-mode paredit multiple-cursors matlab-mode markdown-mode magit lua-mode less-css-mode idle-highlight-mode helm graphviz-dot-mode glsl-mode exec-path-from-shell evil color-theme-sanityinc-tomorrow cmake-mode clojure-mode buffer-move better-defaults auto-complete ace-window))
+   '(treemacs-all-the-icons helm-projectile projectile tidal haskell-mode dumb-jump yaml-mode writeroom-mode web-mode toml-mode sunrise-x-loop sunrise-x-buttons solarized-theme smex scss-mode protobuf-mode paredit multiple-cursors matlab-mode markdown-mode magit lua-mode less-css-mode idle-highlight-mode helm graphviz-dot-mode glsl-mode exec-path-from-shell evil color-theme-sanityinc-tomorrow cmake-mode clojure-mode buffer-move better-defaults auto-complete ace-window))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
+ '(safe-local-variable-values
+   '((eval projectile-update-project-type 'bazel :test-prefix "test_")))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")

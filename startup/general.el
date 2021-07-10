@@ -14,19 +14,14 @@
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
-(use-package tide
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
 (use-package tree-sitter
-         :hook (treesitter-after-on-hook . tree-sitter-hl-mode)
-         :init (global-tree-sitter-mode))
+  :hook (treesitter-after-on-hook . tree-sitter-hl-mode)
+  :init (global-tree-sitter-mode))
+
 (use-package tree-sitter-langs
-    :after tree-sitter
-    :config
-    (add-to-list 'tree-sitter-major-mode-language-alist '(web-mode . tsx)))
+  :after tree-sitter
+  :config
+  (add-to-list 'tree-sitter-major-mode-language-alist '(web-mode . tsx)))
 
 (use-package highlight-indent-guides
   :pin "melpa"
@@ -37,18 +32,38 @@
   (highlight-indent-guides-responsive nil))
 
 (use-package direnv
- :config
- (direnv-mode))
+  :config
+  (direnv-mode))
 
 (use-package evil
   :config
   (evil-mode 1))
 
+(use-package ivy :ensure t
+  :diminish (ivy-mode . "")
+  :bind
+  (:map ivy-mode-map
+        ("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+	    ;; allow input not in order
+        '((t   . ivy--regex-ignore-order))))
+
 (use-package projectile
   :after f
   :config
   (setq projectile-enable-caching t)
-  (define-key projectile-mode-map (kbd "C-M-a") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "M-p") 'projectile-command-map)
   (projectile-auto-discover nil)
   (when (file-directory-p "~/repos/")
     (projectile-project-search-path (f-directories "~/repos")))
@@ -65,6 +80,7 @@
   (projectile-ignored-project-function
    (lambda (project-root)
      (string-prefix-p (expand-file-name user-emacs-directory) project-root)))
+  (setq projectile-completion-system 'ivy)
   ;;:bind
   ;;("C-M-t" . fk/projectile-vterm)
   :hook
@@ -82,6 +98,10 @@
   :config
   (treemacs-git-mode 'deferred))
 
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
+
 (use-package treemacs-projectile
   :after treemacs projectile
   :ensure t)
@@ -90,14 +110,21 @@
   :after treemacs magit
   :ensure t)
 
+(when (display-graphic-p) 
+  (use-package treemacs-all-the-icons
+    :after treemacs
+    :config
+    (treemacs-load-theme "all-the-icons")))
+
 (use-package company
   :custom
-  (company-idle-delay 0.5)
+  (company-idle-delay 0.25)
   (company-minimum-prefix-length 1)
   (company-tooltip-align-annotations t)
   (company-selection-wrap-around t)
   ;; Disable `single-candidate' and `echo-area' frontends
-  (company-frontends '(company-box-frontend))
+  (when (display-graphic-p)
+    (company-frontends '(company-box-frontend)))
   (company-backends '(company-capf))
   (company-dabbrev-other-buffers t) ; search buffers with the same major mode
   :bind
@@ -129,7 +156,6 @@
   (setq lsp-disabled-clients '(ts-ls))
     :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
             (python-mode . lsp)
-            (web-mode . lsp)
             (rjsx-mode . lsp))
             ;; if you want which-key integration
             ;;(lsp-mode . lsp-enable-which-key-integration))
@@ -170,7 +196,9 @@
 (setq tramp-auto-save-directory "~/.emacs.d/autosave")
 (setq tramp-default-method "ssh")
 
-(setq shell-file-name "zsh")
+
+(if (eq system-type 'darwin)
+    (setq shell-file-name "zsh"))
 (add-to-list 'exec-path "/usr/local/bin")
 
 
@@ -239,26 +267,6 @@
 ;;   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   
 ;;   (helm-mode 1))
-
-(use-package ivy :ensure t
-  :diminish (ivy-mode . "")
-  :bind
-  (:map ivy-mode-map
-        ("C-'" . ivy-avy))
-  :config
-  (ivy-mode 1)
-  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
-  (setq ivy-use-virtual-buffers t)
-  ;; number of result lines to display
-  (setq ivy-height 10)
-  ;; does not count candidates
-  (setq ivy-count-format "")
-  ;; no regexp by default
-  (setq ivy-initial-inputs-alist nil)
-  ;; configure regexp engine.
-  (setq ivy-re-builders-alist
-	    ;; allow input not in order
-        '((t   . ivy--regex-ignore-order))))
 
 (use-package counsel
   :bind* ; load when pressed
