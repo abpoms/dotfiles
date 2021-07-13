@@ -88,7 +88,8 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :pin "melpa")
 
 (use-package treemacs
   :custom
@@ -152,6 +153,8 @@
 (use-package lsp-mode
   ;;:custom (lsp-file-watch-ignored-directories (push "[/\\\\]\\.direnv\\'" lsp-file-watch-ignored-directories))
   :config 
+  (setq lsp-keymap-prefix "M-l")
+  (define-key lsp-mode-map (kbd "M-l") lsp-command-map)
   (setq lsp-clients-typescript-server "deno")
   (setq lsp-disabled-clients '(ts-ls))
     :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
@@ -167,9 +170,20 @@
 
 (use-package lsp-pyright
   :after lsp-mode
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
+  :hook
+  (python-mode . (lambda ()
+                   (require 'lsp-pyright)
+                   (setq lsp-file-watch-threshold 50000)
+                   (lsp)
+                   (flycheck-add-next-checker 'lsp 'python-flake8))))
+
+(use-package py-isort
+  :after python
+  :hook (before-save . py-isort-before-save))
+
+(use-package blacken
+  :after python
+  :hook (python-mode . blacken-mode))
 
 (use-package magit
   :config
@@ -336,5 +350,3 @@
 
 ;; Auto complete 
                                         ;(define-key ac-completing-map "\M-/" 'ac-stop) ; use M-/ to stop
-
-(use-package anaconda-mode)
